@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0a1e32">
+<title>Canada Air Hockey v2.1 · 觸控穩定強化版</title>
+<style>
+:root{--red:#f65b70;--blue:#42b8ff;--text:#f1f8ff;--muted:#b5d0e4;--gold:#fbd284}
+*{box-sizing:border-box}html,body{margin:0;height:100%;width:100%;overflow:hidden;background:#061728;color:var(--text);font-family:system-ui,'Noto Sans TC','Microsoft JhengHei',sans-serif;user-select:none;-webkit-user-select:none;overscroll-behavior:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}button,input{font:inherit}button{cursor:pointer;border:0;touch-action:manipulation}button:active{transform:scale(.975)}button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+#app{position:relative;width:100%;height:100dvh;background:radial-gradient(ellipse at top,#1a496d 0%,#071a2e 75%);overflow:hidden}.snow{position:absolute;inset:0;pointer-events:none;opacity:.14;background-image:radial-gradient(#e1f3ff 1px,transparent 1px);background-size:46px 46px}.screen{display:none;position:absolute;inset:0}.screen.active{display:flex}.lobby{padding:15px;overflow-y:auto;align-items:center;justify-content:center;touch-action:pan-y}.panel{width:min(1100px,100%);margin:auto;border:1px solid #5f92b5;background:linear-gradient(145deg,#123854f9,#092037f9);padding:clamp(16px,2.2vw,28px);border-radius:24px;box-shadow:0 25px 65px #0008}.eyebrow{color:#a9dcfa;letter-spacing:.14em;font-size:.8rem;font-weight:900}.brand{margin:10px 0;font-size:clamp(2rem,5vw,4.2rem);line-height:1;font-weight:1000}.brand .red{color:var(--red)}.brand .blue{color:var(--blue)}.sub{color:#d0e8f7;font-size:clamp(.92rem,1.7vw,1.2rem);margin:4px 0 14px}.culture{background:#194460;border-left:5px solid var(--red);border-radius:13px;padding:13px 16px;line-height:1.6;margin:10px 0 18px}.culture strong{color:#fff}.culture small{color:#c3deee}.settings{display:grid;grid-template-columns:1fr 1fr;gap:16px 22px}.setting label{display:block;font-weight:900;font-size:.9rem;margin-bottom:8px}.choices{display:flex;gap:7px;flex-wrap:wrap}.choice{padding:10px 13px;min-height:47px;background:#173f60;color:#ecf9ff;border:2px solid #416c8c;border-radius:12px;font-weight:850;min-width:64px}.choice.selected{background:#e4f7ff;color:#09283d;border-color:#fff;box-shadow:0 0 0 2px #66caff55}.detail{font-size:.82rem;color:#bbd5e8;margin-top:7px;line-height:1.4}.volume{display:flex;gap:13px;align-items:center;flex-wrap:wrap}.volume input[type=range]{width:min(210px,45vw);accent-color:#74d3ff}.volume label{display:flex;align-items:center;gap:6px;margin:0}.volume input[type=checkbox]{width:22px;height:22px;accent-color:#5bc6ff}.actions{display:flex;gap:15px;align-items:end;justify-content:space-between;margin-top:24px;flex-wrap:wrap}.hint{font-size:.84rem;line-height:1.65;color:#bad7e9;max-width:600px}.actionbuttons{display:flex;gap:10px;flex-wrap:wrap}.primary{background:linear-gradient(120deg,#fb5a6e,#d52c48);border:2px solid #ffc4cb;color:#fff;border-radius:14px;padding:12px 25px;min-height:59px;font-size:1.13rem;font-weight:1000;box-shadow:0 8px 26px #ac263d66}.secondary{background:#1a4c6f;color:#fff;border:1px solid #6ea3c5;border-radius:12px;min-height:48px;padding:10px 16px;font-weight:850}.footer{margin-top:13px;color:#92bed8;font-size:.75rem;line-height:1.5}.game{flex-direction:column;touch-action:none}.hud{flex:0 0 auto;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:clamp(8px,1.6vw,22px);padding:7px 12px;min-height:73px;background:linear-gradient(180deg,#144568,#0d2b47);border-bottom:2px solid #4a7897;z-index:2}.team{display:flex;justify-content:center;align-items:center;gap:10px;padding:7px 11px;border-radius:12px;background:#1e3f59;min-height:54px;min-width:99px}.team.red{border:2px solid var(--red)}.team.blue{border:2px solid var(--blue)}.team span{font-size:.82rem;font-weight:850;line-height:1.1}.team strong{font-size:2rem;font-weight:1000;font-variant-numeric:tabular-nums}.hudmiddle{text-align:center;min-width:130px}.clock{font-size:clamp(1.24rem,2.9vw,1.9rem);letter-spacing:.03em;font-weight:1000}.status{color:#c7e9fa;font-size:.72rem;font-weight:850;letter-spacing:.07em}.tools{display:flex;gap:7px}.iconbtn{border:1px solid #80b9d8;min-width:58px;min-height:58px;border-radius:11px;background:#1c5377;color:#fff;font-size:1.2rem;touch-action:none;user-select:none;position:relative}.iconbtn.holding{box-shadow:0 0 0 4px #fbd284 inset}.iconbtn:disabled{opacity:.5}.teacher-note{font-size:.70rem;color:#d5e8f5;text-align:center;white-space:nowrap}.arena{position:relative;flex:1;min-height:0;touch-action:none;overflow:hidden}#rink{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}.playernames{position:absolute;bottom:4px;left:0;right:0;display:grid;grid-template-columns:1fr 1fr;pointer-events:none;text-align:center;font-size:clamp(.7rem,1.3vw,.93rem);font-weight:1000;letter-spacing:.08em;text-shadow:0 2px 3px #00131c}.playernames span:first-child{color:#ff8b9d}.playernames span:last-child{color:#98e0ff}.toast{position:absolute;z-index:2;top:36%;left:50%;transform:translate(-50%,-50%);text-align:center;font-weight:1000;font-size:clamp(2.3rem,6vw,5.5rem);color:#fff;text-shadow:0 0 26px #40b4ff,0 4px 4px #062138;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap}.toast.show{opacity:1}.overlay{display:none;position:absolute;inset:0;background:#031221cb;backdrop-filter:blur(6px);z-index:5;align-items:center;justify-content:center;padding:20px}.overlay.show{display:flex}.modal{width:min(560px,100%);background:linear-gradient(145deg,#1a4b70,#082840);border:2px solid #91b5cf;border-radius:23px;padding:28px;text-align:center;box-shadow:0 20px 70px #0009}.modal h2{margin:0 0 10px;font-size:clamp(1.9rem,4vw,2.7rem)}.modal p{color:#cde6f7;line-height:1.65}.resultScore{font-size:clamp(3rem,7vw,4rem);font-weight:1000}.modalButtons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}.engineLabel{font-size:.72rem;color:#a2d4f0;position:absolute;right:12px;bottom:27px;pointer-events:none}.error{display:none;position:absolute;top:90px;left:50%;transform:translateX(-50%);width:min(760px,90vw);z-index:6;border:2px solid #ff9191;border-radius:12px;background:#572533;color:#fff;padding:14px;line-height:1.5}.error.show{display:block}
+@media(max-width:710px){.settings{grid-template-columns:1fr}.hud{gap:4px;min-height:58px;padding:4px}.team{min-width:65px;min-height:46px;padding:4px;gap:5px}.team span{font-size:.62rem}.team strong{font-size:1.5rem}.hudmiddle{min-width:80px}.status{font-size:.58rem}.iconbtn{min-width:49px;min-height:49px}.teacher-note{font-size:.56rem}.modal{padding:15px}.playernames{font-size:.68rem}}
+@media(max-height:640px) and (min-width:750px){.lobby{align-items:start}.panel{padding:13px}.brand{font-size:2rem}.culture{padding:7px;margin:5px 0}.settings{gap:8px}.choice{min-height:38px;padding:6px 11px}.actions{margin-top:10px}.hud{min-height:55px}}
+</style>
+<!-- Phaser includes Matter.js. If the CDN is unavailable, an offline-compatible physics fallback keeps the game playable. -->
+<script async src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
+</head>
+<body>
+<div id="app"><div class="snow"></div>
+<section class="screen lobby active" id="lobby"><div class="panel">
+<div class="eyebrow">🍁 CANADA WINTER GAMES · TWO-PLAYER TOUCH ARENA</div>
+<h1 class="brand"><span class="red">CANADA</span> <span class="blue">AIR HOCKEY</span></h1>
+<div class="sub">雙人同側競賽｜一顆冰球、兩種鏡像視角、真實擊球體驗</div>
+<div class="culture"><strong>🍁 Discover Canada! 加拿大文化小知識</strong><div><strong>Ice hockey is Canada's national winter sport.</strong><br>冰上曲棍球是加拿大的國家冬季運動。選手使用球桿擊打冰球（puck）。<br><small>Air Hockey 是以曲棍球為靈感的桌上遊戲，並不是正式冰上曲棍球。透過這場雙人挑戰，練習瞄準、反應與合作精神！</small></div></div>
+<div class="settings">
+<div class="setting"><label>🏆 Match Mode 比賽制度</label><div class="choices" data-setting="mode"><button class="choice selected" data-value="time">⏱ 限時 Time</button><button class="choice" data-value="score">🎯 目標分數 Score</button></div></div>
+<div class="setting" id="timeSetting"><label>⏱ Time Limit 比賽時間</label><div class="choices" data-setting="duration"><button class="choice" data-value="30">30s</button><button class="choice selected" data-value="60">60s</button><button class="choice" data-value="90">90s</button><button class="choice" data-value="120">120s</button></div></div>
+<div class="setting" id="scoreSetting" hidden><label>🎯 First To 目標分數</label><div class="choices" data-setting="target"><button class="choice" data-value="3">3</button><button class="choice selected" data-value="5">5</button><button class="choice" data-value="7">7</button><button class="choice" data-value="10">10</button></div></div>
+<div class="setting"><label>❄️ Difficulty 難度</label><div class="choices" data-setting="difficulty"><button class="choice" data-value="easy">Easy</button><button class="choice selected" data-value="normal">Normal</button><button class="choice" data-value="hard">Hard</button></div><div id="difficultyDetail" class="detail">Normal：中等球速、適中的球桿大小。</div></div>
+<div class="setting"><label>✋ Grab & Drag 操控方式</label><div class="culture" style="margin:0;padding:9px 13px"><strong>直接抓住球桿拖曳</strong><br><small>按住：球桿貼住手指；放開：極輕微滑行後停止。靠近球門前方也可以防守。</small></div></div>
+<div class="setting"><label>🎵 Music & SFX 音量 <span id="volumeText">50%</span></label><div class="volume"><input id="volume" type="range" min="0" max="100" value="50" aria-label="音量"><button class="secondary" id="testSound">▶ 試聽</button><label><input id="bgm" type="checkbox" checked>背景音樂</label></div></div>
+</div>
+<div class="actions"><div class="hint">✅ Easy / Normal / Hard 全部共用同一套啟動流程。<br>✅ 限時與目標分數均可連續重玩，不必重新整理。<br>✅ 雙人觸控與低延遲繪圖；對戰時全螢幕按鍵隱藏，暫停需長按 1.2 秒。</div><div class="actionbuttons"><button id="lobbyFullscreen" class="secondary">⛶ 全螢幕</button><button id="start" class="primary">START GAME →</button></div></div>
+<div class="footer">版本 v2.1 · Phaser.js / Matter.js 優先，若網路無法載入引擎，內建離線碰撞模式自動接手。建議以 Chrome / Edge 運行。</div>
+</div></section>
+<section class="screen game" id="game"><header class="hud"><div class="team red"><span>RED<br>TEAM</span><strong id="redScore">0</strong></div><div class="hudmiddle"><div id="clock" class="clock">01:00</div><div id="status" class="status">GET READY</div></div><div class="team blue"><strong id="blueScore">0</strong><span>BLUE<br>TEAM</span></div><div class="tools"><div class="teacher-note">教師功能<br>長按暫停</div><button id="pause" class="iconbtn" aria-label="長按 1.2 秒暫停" title="觸控長按 1.2 秒暫停；鍵盤 P 可暫停">Ⅱ</button></div></header><div id="arena" class="arena"><canvas id="rink" aria-label="雙人空氣曲棍球場"></canvas><div class="playernames"><span>● PLAYER 1 — RED</span><span>● PLAYER 2 — BLUE</span></div><div class="toast" id="toast"></div><div class="engineLabel" id="engineLabel"></div></div></section>
+<div class="overlay" id="overlay"><div class="modal"><h2 id="modalTitle">PAUSED</h2><p id="modalDesc">遊戲暫停中</p><div id="resultScore" class="resultScore" hidden></div><div class="modalButtons"><button id="resume" class="primary">▶ RESUME</button><button id="again" class="primary" hidden>↻ PLAY AGAIN</button><button id="goLobby" class="secondary">⌂ LOBBY</button></div></div></div><div id="error" class="error"></div>
+</div>
+<script>
+(()=>{'use strict';
+const $=(id)=>document.getElementById(id);
+const W=500,H=840,GOAL=174,R=17,FIXED_DT=1/60;
+// Render only as many physical pixels as needed; 4K panels must not allocate a 30+MP canvas.
+const MAX_CANVAS_PIXELS=2_600_000;
+const clamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
+const profiles={
+ easy:{max:410,serve:230,paddle:43,loss:.9984,shotFactor:.65,label:'Easy：慢速冰球、大球桿，適合初次遊玩。'},
+ normal:{max:625,serve:335,paddle:36,loss:.999,shotFactor:.82,label:'Normal：中等冰球速度、中等球桿大小。'},
+ hard:{max:830,serve:445,paddle:30,loss:.9992,shotFactor:1.02,label:'Hard：快速冰球、小球桿，考驗反應與防守。'}
+};
+const cfg={mode:'time',duration:60,target:5,difficulty:'normal',volume:.5};
+let state='lobby',prevState='serve',scores={red:0,blue:0},remaining=60,overtime=false,server='red';
+let stateLeft=0,lastTime=0,acc=0,toastLeft=0,raf=0,matchId=0;
+let puck={x:W/2,y:H/2,vx:0,vy:0},mallets={red:null,blue:null},contacts=new Map(),views=[];
+let engineType='fallback',physics=null,M=null,engine=null,matterPuck=null,matterPaddles=null;
+let audio=null,musicTimer=null,melodyIndex=0,lastImpact=0,ctx=$('rink').getContext('2d',{alpha:false,desynchronized:true}),cw=1,ch=1,dpr=1;
+const backgroundCanvas=document.createElement('canvas'),backgroundCtx=backgroundCanvas.getContext('2d',{alpha:false});
+let qualityScale=1,slowFrames=0,perfFrames=0,drawTimeTotal=0,performanceDrops=0;
+let lastGrabRelease=0;
+const textCache=Object.create(null);
+function setHudText(id,value){const str=String(value);if(textCache[id]!==str){textCache[id]=str;$(id).textContent=str}}
+const difficulty=()=>profiles[cfg.difficulty]||profiles.normal;
+// Game state is owned by a single persistent requestAnimationFrame loop.
+// Starting a new match never creates/destroys the renderer or scene lifecycle.
+function showScreen(name){$('lobby').classList.toggle('active',name==='lobby');$('game').classList.toggle('active',name==='game')}
+function fail(err){console.error(err);$('error').textContent='系統錯誤（已保留遊戲畫面）：'+(err?.message||String(err));$('error').classList.add('show')}
+function clearError(){$('error').classList.remove('show')}
+function updateSettings(){ $('timeSetting').hidden=cfg.mode!=='time';$('scoreSetting').hidden=cfg.mode!=='score';$('difficultyDetail').textContent=difficulty().label; }
+for(const root of document.querySelectorAll('[data-setting]'))root.addEventListener('click',e=>{
+ const b=e.target.closest('button[data-value]');if(!b)return;
+ const key=root.dataset.setting; cfg[key]=['duration','target'].includes(key)?Number(b.dataset.value):b.dataset.value;
+ root.querySelectorAll('button').forEach(el=>el.classList.toggle('selected',el===b));
+ updateSettings();sound('select');
+});
+$('volume').addEventListener('input',e=>{cfg.volume=Number(e.target.value)/100;$('volumeText').textContent=e.target.value+'%';if(!cfg.volume)stopMusic();else if(state==='serve'||state==='play')startMusic()});
+$('bgm').addEventListener('change',()=>{if($('bgm').checked&&['serve','play'].includes(state))startMusic();else stopMusic()});
+$('testSound').addEventListener('click',()=>sound('goal'));
+async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await $('app').requestFullscreen()}catch(e){console.warn('Fullscreen unavailable',e)}}
+$('lobbyFullscreen').addEventListener('click',fullscreen);
+// No fullscreen EXIT toggle on the match screen. Children cannot accidentally press it while playing.
+// Web Audio API: all effects and music are synthesized, with no external recordings.
+function initAudio(){try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();return audio}catch{return null}}
+function tone(freq,duration=.1,type='sine',vol=.12,delay=0,end=1){if(!cfg.volume)return;const a=initAudio();if(!a)return;const t=a.currentTime+delay,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(Math.max(30,freq),t);if(end!==1)o.frequency.exponentialRampToValueAtTime(Math.max(30,freq*end),t+duration);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0002,vol*cfg.volume),t+.009);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+duration+.02)}
+function sound(kind){if(kind==='goal'){tone(400,.16,'triangle',.25);tone(620,.16,'triangle',.21,.12);tone(840,.35,'sine',.24,.24)}else if(kind==='hit'){if(performance.now()-lastImpact<60)return;lastImpact=performance.now();tone(205,.075,'triangle',.18,0,.58);tone(105,.08,'sine',.12)}else if(kind==='wall'){if(performance.now()-lastImpact<60)return;lastImpact=performance.now();tone(330,.05,'triangle',.1,0,.7)}else if(kind==='win'){[523,659,784,1046].forEach((n,i)=>tone(n,.21,'triangle',.18,i*.14))}else if(kind==='tick')tone(700,.095,'sine',.12);else if(kind==='select')tone(470,.042,'sine',.08)}
+const melody=[523,659,784,0,659,784,880,0,784,659,587,0,523,587,659,0,392,494,587,0,523,659,784,0,880,784,659,587,523,0,392,0];
+function stopMusic(){if(musicTimer!==null){clearInterval(musicTimer);musicTimer=null}}
+function startMusic(){if(musicTimer!==null||!$('bgm').checked||!cfg.volume||!['play','serve','goal'].includes(state))return;initAudio();melodyIndex=0;musicTimer=setInterval(()=>{if(!['play','serve','goal'].includes(state)||!$('bgm').checked||!cfg.volume){stopMusic();return}const i=melodyIndex++%melody.length;if(melody[i])tone(melody[i],.16,'triangle',.033);if(i%4===0)tone(130,.08,'sine',.026)},235)}
+function showToast(label,duration=1){$('toast').textContent=label;$('toast').classList.add('show');toastLeft=duration}
+function setState(next){state=next;updateHud()}
+function updateHud(){
+ setHudText('redScore',scores.red);setHudText('blueScore',scores.blue);
+ if(cfg.mode==='score')setHudText('clock','FIRST TO '+cfg.target);
+ else if(overtime)setHudText('clock','GOLDEN GOAL');
+ else {const secs=Math.ceil(Math.max(0,remaining));setHudText('clock',String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0'))}
+ setHudText('status',{serve:'GET READY',play:'LIVE MATCH',goal:'GOAL!',pause:'PAUSED',finish:'MATCH OVER',lobby:'LOBBY'}[state]||state);
+}
+function clearContacts(){
+ for(const id of contacts.keys()){try{if($('rink').hasPointerCapture(id))$('rink').releasePointerCapture(id)}catch(_){}}
+ contacts.clear();lastGrabRelease=performance.now();
+}
+function resetMallets(){
+ const radius=difficulty().paddle;
+ mallets={red:{x:W/2,y:H-125,r:radius,vx:0,vy:0,dx:0,dy:0,inputVx:0,inputVy:0,prevX:W/2,prevY:H-125},blue:{x:W/2,y:125,r:radius,vx:0,vy:0,dx:0,dy:0,inputVx:0,inputVy:0,prevX:W/2,prevY:125}};
+ clearContacts();
+}
+function clampMallet(team,x,y,r){
+ // Players can defend right in front of the goal line, but may not cross it.
+ const inset=r+3;
+ return {x:clamp(x,inset,W-inset),y:team==='red'?clamp(y,H/2+r+4,H-r-3):clamp(y,r+3,H/2-r-4)};
+}
+function matterAvailable(){return !!(window.Phaser&&Phaser.Physics&&Phaser.Physics.Matter&&Phaser.Physics.Matter.Matter)}
+function makePhysics(){
+ engineType='fallback';physics=null;engine=null;M=null;matterPuck=null;matterPaddles=null;
+ if(!matterAvailable()){$('engineLabel').textContent='Offline Physics';return}
+ try{
+  M=Phaser.Physics.Matter.Matter;
+  engine=M.Engine.create({enableSleeping:false});engine.gravity.x=engine.gravity.y=0;
+  const wall=(x,y,w,h)=>M.Composite.add(engine.world,M.Bodies.rectangle(x,y,w,h,{isStatic:true,restitution:.93,friction:0,label:'wall'}));
+  wall(-14,H/2,28,H+80);wall(W+14,H/2,28,H+80);
+  const a=(W-GOAL)/2,b=(W+GOAL)/2;
+  wall(a/2,-14,a+24,28);wall((b+W)/2,-14,W-b+24,28);
+  wall(a/2,H+14,a+24,28);wall((b+W)/2,H+14,W-b+24,28);
+  matterPuck=M.Bodies.circle(W/2,H/2,R,{restitution:.985,friction:0,frictionStatic:0,frictionAir:0,density:.001,label:'puck'});
+  matterPaddles={};for(const team of ['red','blue'])matterPaddles[team]=M.Bodies.circle(mallets[team].x,mallets[team].y,mallets[team].r,{isStatic:true,restitution:.95,friction:0,frictionStatic:0,label:team});
+  M.Composite.add(engine.world,[matterPuck,matterPaddles.red,matterPaddles.blue]);
+  M.Events.on(engine,'collisionStart',event=>{for(const pair of event.pairs){if(pair.bodyA.label==='puck'||pair.bodyB.label==='puck'){sound(pair.bodyA.label==='wall'||pair.bodyB.label==='wall'?'wall':'hit')}}});
+  engineType='matter';$('engineLabel').textContent='Matter.js Physics';
+ }catch(err){console.warn('Matter initialization failed; using offline physics',err);engineType='fallback';engine=null;M=null;$('engineLabel').textContent='Offline Physics'}
+}
+function syncMatter(){if(engineType!=='matter')return;
+ M.Body.setPosition(matterPuck,{x:puck.x,y:puck.y});M.Body.setVelocity(matterPuck,{x:puck.vx/60,y:puck.vy/60});
+ for(const team of ['red','blue']){M.Body.setPosition(matterPaddles[team],{x:mallets[team].x,y:mallets[team].y});M.Body.setVelocity(matterPaddles[team],{x:0,y:0})}
+}
+function startMatch(){
+ clearError();$('overlay').classList.remove('show');showScreen('game');stopMusic();
+ qualityScale=1;slowFrames=0;perfFrames=0;drawTimeTotal=0;
+ ++matchId; scores={red:0,blue:0};remaining=cfg.duration;overtime=false;server=Math.random()<.5?'red':'blue';acc=0;
+ resetMallets();puck={x:W/2,y:H/2,vx:0,vy:0};makePhysics();
+ startServe(true);startMusic();resizeCanvas();updateHud();
+}
+function startServe(initial=false){
+ clearContacts();resetMallets();puck.x=W/2;puck.y=server==='red'?H-220:220;puck.vx=0;puck.vy=0;
+ stateLeft=initial?2.8:1.8;setState('serve');syncMatter();showToast('3',.85);
+}
+function releaseServe(){
+ const p=difficulty(),angle=(Math.random()-.5)*.35,dir=server==='red'?-1:1;
+ puck.vx=Math.sin(angle)*p.serve;puck.vy=dir*Math.cos(angle)*p.serve;
+ syncMatter();setState('play');showToast('GO!',.45);
+}
+function takeGoal(team){
+ if(state!=='play')return;
+ scores[team]++;server=team==='red'?'blue':'red';clearContacts();puck.vx=puck.vy=0;
+ stateLeft=1.65;setState('goal');sound('goal');showToast(team==='red'?'RED GOAL!':'BLUE GOAL!',1.15);
+}
+function complete(){
+ if(state==='finish')return;
+ clearContacts();stopMusic();setState('finish');
+ const winner=scores.red===scores.blue?'DRAW! 平手':scores.red>scores.blue?'🏆 RED TEAM WINS!':'🏆 BLUE TEAM WINS!';
+ $('modalTitle').textContent=winner;$('modalDesc').textContent='Great game! 太棒了！再比一場嗎？';$('resultScore').hidden=false;$('resultScore').textContent=scores.red+' : '+scores.blue;
+ $('resume').hidden=true;$('again').hidden=false;$('overlay').classList.add('show');sound('win');
+}
+function goalReached(){return cfg.mode==='score'&&(scores.red>=cfg.target||scores.blue>=cfg.target)}
+function simulateMallets(dt){
+ for(const team of ['red','blue']){
+  const m=mallets[team];const touch=[...contacts.values()].find(t=>t.team===team);
+  const oldX=m.x,oldY=m.y;
+  if(touch){const q=clampMallet(team,touch.x+touch.ox,touch.y+touch.oy,m.r);m.x=q.x;m.y=q.y;m.dx=0;m.dy=0}
+  else{
+   // Slow, predictable coast ONLY after releasing. 0.28s approximately to stop.
+   m.dx*=Math.exp(-10*dt);m.dy*=Math.exp(-10*dt);
+   const q=clampMallet(team,m.x+m.dx*dt,m.y+m.dy*dt,m.r);
+   if(Math.abs(q.x-(m.x+m.dx*dt))>.02)m.dx=0;
+   if(Math.abs(q.y-(m.y+m.dy*dt))>.02)m.dy=0;
+   m.x=q.x;m.y=q.y;
+  }
+  m.vx=clamp(touch?(m.inputVx||((m.x-oldX)/dt)):((m.x-oldX)/dt),-780,780);m.vy=clamp(touch?(m.inputVy||((m.y-oldY)/dt)):((m.y-oldY)/dt),-780,780);m.inputVx=0;m.inputVy=0;
+ }
+}
+function collisionMallet(m){
+ // Swept circle-vs-circle test: a quick finger swipe must not skip over the puck.
+ const ax=m.prevX,ay=m.prevY,bx=m.x,by=m.y,dx=bx-ax,dy=by-ay,den=dx*dx+dy*dy;
+ const t=den>.0001?clamp(((puck.x-ax)*dx+(puck.y-ay)*dy)/den,0,1):1;
+ const hitX=ax+t*dx,hitY=ay+t*dy;
+ const ox=puck.x-hitX,oy=puck.y-hitY,dist=Math.hypot(ox,oy),min=m.r+R;
+ if(dist>=min)return;
+ const nx=dist>.0001?ox/dist:0,ny=dist>.0001?oy/dist:(m.y<H/2?1:-1);
+ // Separate the puck from the point of contact without moving the held paddle.
+ puck.x=hitX+nx*(min+.35);puck.y=hitY+ny*(min+.35);
+ const rel=(puck.vx-m.vx)*nx+(puck.vy-m.vy)*ny;
+ if(rel<0){
+  const impulse=(-rel)*1.55;
+  puck.vx+=impulse*nx+m.vx*.07*difficulty().shotFactor;
+  puck.vy+=impulse*ny+m.vy*.07*difficulty().shotFactor;
+  sound('hit');
+ }
+}
+function storeMalletPositions(){for(const team of ['red','blue']){const m=mallets[team];m.prevX=m.x;m.prevY=m.y}}
+function reflectWalls(){
+ if(puck.x<R){puck.x=R;puck.vx=Math.abs(puck.vx)*.96;sound('wall')}
+ if(puck.x>W-R){puck.x=W-R;puck.vx=-Math.abs(puck.vx)*.96;sound('wall')}
+ const goalLeft=(W-GOAL)/2,goalRight=(W+GOAL)/2;
+ if(puck.y<R&&!(puck.x>goalLeft+R*.3&&puck.x<goalRight-R*.3)){puck.y=R;puck.vy=Math.abs(puck.vy)*.96;sound('wall')}
+ if(puck.y>H-R&&!(puck.x>goalLeft+R*.3&&puck.x<goalRight-R*.3)){puck.y=H-R;puck.vy=-Math.abs(puck.vy)*.96;sound('wall')}
+}
+function stepPhysics(dt){
+ simulateMallets(dt);
+ if(engineType==='matter'){
+  // Single Matter world, one puck, two independently controlled mallets.
+  try{
+   for(const team of ['red','blue']){const b=matterPaddles[team],m=mallets[team];M.Body.setPosition(b,{x:m.x,y:m.y});M.Body.setVelocity(b,{x:m.vx/60,y:m.vy/60})}
+   M.Engine.update(engine,1000/60);
+   puck.x=matterPuck.position.x;puck.y=matterPuck.position.y;
+   puck.vx=matterPuck.velocity.x*60;puck.vy=matterPuck.velocity.y*60;
+  }catch(e){console.warn('Switching to offline physics',e);engineType='fallback';$('engineLabel').textContent='Offline Physics';engine=null;M=null}
+ }
+ if(engineType==='fallback'){
+  puck.x+=puck.vx*dt;puck.y+=puck.vy*dt;
+  reflectWalls();
+ }
+ for(const team of ['red','blue'])collisionMallet(mallets[team]);
+ const p=difficulty();puck.vx*=p.loss;puck.vy*=p.loss;
+ const s=Math.hypot(puck.vx,puck.vy);if(s>p.max){puck.vx=puck.vx*p.max/s;puck.vy=puck.vy*p.max/s}
+ // Matter puck velocity must match the corrected position, bounce impulse and speed clamp.
+ if(engineType==='matter')syncMatter();
+ storeMalletPositions();
+ const L=(W-GOAL)/2+R*.3,T=(W+GOAL)/2-R*.3;
+ if(puck.y<-R&&puck.x>L&&puck.x<T)takeGoal('red');
+ else if(puck.y>H+R&&puck.x>L&&puck.x<T)takeGoal('blue');
+ else if(puck.y<-90||puck.y>H+90){startServe()}
+}
+function updateGame(dt){
+ if(state==='serve'){
+  simulateMallets(dt);storeMalletPositions();
+  const old=Math.ceil(Math.max(0,stateLeft));stateLeft-=dt;
+  const current=Math.ceil(Math.max(0,stateLeft));if(current!==old&&current>0){showToast(String(current),.88);sound('tick')}
+  if(stateLeft<=0)releaseServe();
+ }else if(state==='play'){
+  if(cfg.mode==='time'&&!overtime){remaining=Math.max(0,remaining-dt);if(remaining===0){if(scores.red===scores.blue){overtime=true;showToast('GOLDEN GOAL!',1.3)}else{complete();return}}}
+  acc=Math.min(acc+dt,.10);let n=0;
+  while(acc>=FIXED_DT&&n<7&&state==='play'){stepPhysics(FIXED_DT);acc-=FIXED_DT;n++}
+  if(n>=7)acc=0;
+  updateHud();
+ }else if(state==='goal'){
+  stateLeft-=dt;
+  if(stateLeft<=0){if(goalReached()||overtime)complete();else startServe()}
+ }
+}
+// One continuous animation loop for *all* difficulty & match mode combinations.
+function animation(now){
+ raf=requestAnimationFrame(animation);
+ const dt=lastTime?clamp((now-lastTime)/1000,0,.05):0;lastTime=now;
+ if(toastLeft>0){toastLeft-=dt;if(toastLeft<=0)$('toast').classList.remove('show')}
+ try{
+  if(['serve','play','goal'].includes(state))updateGame(dt);
+  if(['serve','play','goal'].includes(state)){
+   const drawStart=performance.now();draw();
+   drawTimeTotal+=performance.now()-drawStart;perfFrames++;
+   if(dt>.029)slowFrames++;
+   if(perfFrames>=45){
+    // Gracefully reduce bitmap size when a school PC / touch monitor is overloaded.
+    if(qualityScale>.57&&(drawTimeTotal/perfFrames>12||slowFrames/perfFrames>.30)){
+     qualityScale=Math.max(.55,qualityScale*.82);performanceDrops++;resizeCanvas();
+    }
+    perfFrames=0;drawTimeTotal=0;slowFrames=0;
+   }
+  }
+ }catch(e){
+  // Never leave a visually blank screen or a stuck countdown; recover instead.
+  fail(e);if(engineType==='matter'){engineType='fallback';M=null;engine=null;$('engineLabel').textContent='Offline Physics';}
+  else if(state!=='pause'&&state!=='finish'){setState('pause');showPause()}
+ }
+}
+function resizeCanvas(){
+ const el=$('arena'),width=el.clientWidth,height=el.clientHeight;
+ if(width<=0||height<=0)return;
+ cw=width;ch=height;
+ const baseDpr=Math.min(1.5,window.devicePixelRatio||1,Math.sqrt(MAX_CANVAS_PIXELS/(cw*ch)));
+ dpr=Math.max(.4,baseDpr*qualityScale);
+ const canvas=$('rink');canvas.width=Math.round(cw*dpr);canvas.height=Math.round(ch*dpr);
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ backgroundCanvas.width=canvas.width;backgroundCanvas.height=canvas.height;
+ const half=cw/2,innerTop=13,innerBottom=38;
+ const scale=Math.min((half-26)/W,(ch-innerTop-innerBottom)/H);
+ const ww=W*scale,hh=H*scale;
+ views=[0,1].map(i=>({team:i?'blue':'red',x:i*half+(half-ww)/2,y:innerTop+(ch-innerTop-innerBottom-hh)/2,s:scale,w:ww,h:hh}));
+ renderBackground();
+}
+window.addEventListener('resize',()=>{resizeCanvas();if(state!=='lobby')draw()});document.addEventListener('fullscreenchange',()=>requestAnimationFrame(resizeCanvas));
+function viewPoint(team,x,y){return team==='red'?{x,y}:{x:W-x,y:H-y}}
+function eventWorld(e,view){const rect=$('rink').getBoundingClientRect();const x=(e.clientX-rect.left-view.x)/view.s,y=(e.clientY-rect.top-view.y)/view.s;return viewPoint(view.team,x,y)}
+function onPointerDown(e){
+ if(!['serve','play'].includes(state))return;
+ if(e.pointerType==='mouse'&&e.button!==0)return;
+ // Prevent synthetic click, browser drag/selection and page gestures, even if the touch misses a paddle.
+ if(e.cancelable)e.preventDefault();
+ const rect=$('rink').getBoundingClientRect(),px=e.clientX-rect.left,py=e.clientY-rect.top;
+ const view=views.find(v=>px>=v.x&&px<=v.x+v.w&&py>=v.y&&py<=v.y+v.h);if(!view)return;
+ if([...contacts.values()].some(v=>v.team===view.team))return;
+ const p=eventWorld(e,view),m=mallets[view.team],grip=m.r+Math.min(22,16/view.s);
+ if(Math.hypot(p.x-m.x,p.y-m.y)>grip)return;
+ contacts.set(e.pointerId,{team:view.team,ox:m.x-p.x,oy:m.y-p.y,x:p.x,y:p.y});m.dx=0;m.dy=0;
+ try{$('rink').setPointerCapture(e.pointerId)}catch(_){ }
+}
+function onPointerMove(e){
+ const c=contacts.get(e.pointerId);if(!c)return;
+ if(e.cancelable)e.preventDefault();const view=views.find(v=>v.team===c.team);if(!view)return;
+ const p=eventWorld(e,view);c.x=p.x;c.y=p.y;
+ // Always render the exact finger-locked location; physics uses the same coordinate.
+ const m=mallets[c.team],next=clampMallet(c.team,c.x+c.ox,c.y+c.oy,m.r);
+ m.inputVx=clamp((next.x-m.x)*60,-780,780);m.inputVy=clamp((next.y-m.y)*60,-780,780);m.vx=m.inputVx;m.vy=m.inputVy;m.x=next.x;m.y=next.y;
+}
+function onPointerUp(e){const c=contacts.get(e.pointerId);if(!c)return;if(e.cancelable)e.preventDefault();contacts.delete(e.pointerId);lastGrabRelease=performance.now();const m=mallets[c.team];if(!m)return;
+ // Release motion is intentionally tiny; no sideways sliding while a finger is held.
+ m.dx=clamp(m.vx*.012,-6,6);m.dy=clamp(m.vy*.012,-6,6);m.vx=0;m.vy=0;
+}
+$('rink').addEventListener('pointerdown',onPointerDown,{passive:false});$('rink').addEventListener('pointermove',onPointerMove,{passive:false});$('rink').addEventListener('pointerup',onPointerUp,{passive:false});$('rink').addEventListener('pointercancel',onPointerUp,{passive:false});$('rink').addEventListener('lostpointercapture',onPointerUp);
+function showPause(){ $('modalTitle').textContent='⏸ PAUSED';$('modalDesc').textContent='比賽已暫停，按 RESUME 繼續。';$('resultScore').hidden=true;$('resume').hidden=false;$('again').hidden=true;$('overlay').classList.add('show') }
+function pauseMatch(){if(!['play','serve','goal'].includes(state)||contacts.size)return;prevState=state;clearContacts();setState('pause');stopMusic();showPause()}
+// Teacher safety gate: a tap must never pause a child's live rally. Touch/pen: HOLD for 1.2 s.
+// Mouse and keyboard still allow a deliberate click for the teacher.
+function guardedTeacherButton(button,action){
+ let touchId=null,anchor=null,holdTimer=null,suppressClickUntil=0;
+ function cancel(){if(holdTimer!==null)clearTimeout(holdTimer);holdTimer=null;touchId=null;anchor=null;button.classList.remove('holding')}
+ button.addEventListener('pointerdown',e=>{
+  if(e.pointerType!=='touch'&&e.pointerType!=='pen')return;
+  if(e.cancelable)e.preventDefault();suppressClickUntil=performance.now()+2500;
+  if(contacts.size||performance.now()-lastGrabRelease<600||!['serve','play','goal'].includes(state))return;
+  cancel();touchId=e.pointerId;anchor={x:e.clientX,y:e.clientY};button.classList.add('holding');
+  try{button.setPointerCapture(touchId)}catch(_){}
+  holdTimer=setTimeout(()=>{if(touchId!==null&&!contacts.size){cancel();action()}},1200);
+ },{passive:false});
+ button.addEventListener('pointermove',e=>{if(e.pointerId===touchId&&anchor&&Math.hypot(e.clientX-anchor.x,e.clientY-anchor.y)>16)cancel()});
+ for(const evt of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(evt,e=>{if(e.pointerId===touchId)cancel()});
+ button.addEventListener('click',e=>{if(performance.now()<suppressClickUntil){e.preventDefault();return}if(contacts.size||performance.now()-lastGrabRelease<600)return;action()});
+}
+guardedTeacherButton($('pause'),pauseMatch);
+document.addEventListener('keydown',e=>{if((e.key==='p'||e.key==='P')&&!e.repeat&&state!=='lobby'){if(state==='pause')$('resume').click();else pauseMatch()}});
+$('resume').addEventListener('click',()=>{$('overlay').classList.remove('show');setState(prevState);startMusic()});
+$('again').addEventListener('click',startMatch);$('start').addEventListener('click',startMatch);
+$('goLobby').addEventListener('click',()=>{clearContacts();stopMusic();$('overlay').classList.remove('show');setState('lobby');showScreen('lobby')});
+document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('dragstart',e=>e.preventDefault());
+document.addEventListener('selectstart',e=>{if(state!=='lobby')e.preventDefault()});
+document.addEventListener('gesturestart',e=>{if(state!=='lobby')e.preventDefault()},{passive:false});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&['serve','play','goal'].includes(state)){clearContacts();pauseMatch()}});
+window.addEventListener('blur',()=>{if(['serve','play','goal'].includes(state)){clearContacts();pauseMatch()}});
+// Rink render is completely independent of Phaser scene startup/shutdown.
+function roundRect(x,y,w,h,r=12,fill=true,stroke=false){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill)ctx.fill();if(stroke)ctx.stroke()}
+function disc(x,y,r,c,outline='#ffffff'){ctx.save();ctx.shadowColor='#122c46';ctx.shadowBlur=r*.25;ctx.shadowOffsetY=4;ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.strokeStyle=outline;ctx.lineWidth=Math.max(1.8,r*.11);ctx.stroke();ctx.beginPath();ctx.arc(x-r*.17,y-r*.24,r*.48,0,Math.PI*2);ctx.fillStyle='#ffffff29';ctx.fill();ctx.restore()}
+function renderBackground(){
+ if(!views.length||cw<1||ch<1)return;
+ const front=ctx;ctx=backgroundCtx;
+ ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cw,ch);
+ const fieldGradient=ctx.createLinearGradient(0,0,0,ch);fieldGradient.addColorStop(0,'#071b2e');fieldGradient.addColorStop(.5,'#153957');fieldGradient.addColorStop(1,'#071b2e');ctx.fillStyle=fieldGradient;ctx.fillRect(0,0,cw,ch);
+ // Ice-glass glow on each side.
+ for(const view of views){const {x,y,w,h,s,team}=view;ctx.save();ctx.shadowColor=team==='red'?'#e74b60':'#2b9ddc';ctx.shadowBlur=21;ctx.fillStyle='#142d46';roundRect(x-12,y-12,w+24,h+24,16);ctx.restore();
+ ctx.strokeStyle=team==='red'?'#f65765':'#43b8ff';ctx.lineWidth=5;ctx.fillStyle='#e3f5ff';roundRect(x-5,y-5,w+10,h+10,15,true,true);
+ ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ // Keep every element inside the same local 500x840 logical rink.
+ ctx.fillStyle='#f6fbff';roundRect(0,0,W,H,10);
+ ctx.fillStyle='#d8eefb';ctx.fillRect(10,10,W-20,H-20);
+ for(let i=0;i<14;i++){ctx.fillStyle=i%2===0?'#ffffff24':'#a9dcf312';ctx.fillRect(12,12+i*(H-24)/14,W-24,(H-24)/14)}
+ ctx.strokeStyle='#3e8dbf';ctx.lineWidth=3;for(const yy of [H*.2,H*.8]){ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(W,yy);ctx.stroke()}
+ ctx.strokeStyle='#de626d';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();ctx.lineWidth=2;ctx.beginPath();ctx.arc(W/2,H/2,79,0,2*Math.PI);ctx.stroke();
+ for(const yy of [H*.13,H*.87])for(const xx of [110,W-110]){ctx.strokeStyle='#a0bbd0';ctx.lineWidth=2;ctx.beginPath();ctx.arc(xx,yy,33,0,Math.PI*2);ctx.stroke()}
+ const gl=(W-GOAL)/2;ctx.fillStyle='#0a3048';ctx.fillRect(gl,-1,GOAL,16);ctx.fillRect(gl,H-15,GOAL,16);
+ ctx.strokeStyle='#fa7980';ctx.lineWidth=7;for(const yy of [0,H]){ctx.beginPath();ctx.moveTo(gl,yy);ctx.lineTo(gl+GOAL,yy);ctx.stroke()}
+ ctx.fillStyle=team==='red'?'#ff546018':'#409fff18';ctx.fillRect(0,H/2,W,H/2);
+ ctx.restore();
+ ctx.fillStyle=team==='red'?'#ff7384':'#86d7ff';ctx.textAlign='center';ctx.font='bold 13px system-ui';ctx.fillText(team==='red'?'RED TEAM':'BLUE TEAM',x+w/2,y-17);
+ }
+ ctx.fillStyle='#5cadd1';ctx.fillRect(cw/2-1,10,2,ch-20);
+ ctx=front;
+}
+function draw(){
+ if(!views.length||cw<1||ch<1||!mallets.red||!mallets.blue)return;
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.drawImage(backgroundCanvas,0,0,cw,ch);
+ for(const view of views){const {x,y,s,team}=view;
+ ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ const at=b=>viewPoint(team,b.x,b.y),me=at(mallets[team]),enemy=at(mallets[team==='red'?'blue':'red']),ball=at(puck);
+ disc(enemy.x,enemy.y,mallets.red.r,team==='red'?'#378dda':'#f25769');disc(me.x,me.y,mallets.red.r,team==='red'?'#f25769':'#378dda');
+ // Grip indicator only when currently held.
+ if([...contacts.values()].some(c=>c.team===team)){ctx.strokeStyle='#ffdd7f';ctx.lineWidth=3;ctx.beginPath();ctx.arc(me.x,me.y,mallets[team].r+8,0,2*Math.PI);ctx.stroke()}
+ ctx.save();ctx.shadowColor='#09273b';ctx.shadowBlur=10;ctx.fillStyle='#1c2b35';ctx.beginPath();ctx.arc(ball.x,ball.y,R,0,2*Math.PI);ctx.fill();ctx.fillStyle='#8195a7';ctx.beginPath();ctx.arc(ball.x,ball.y,R*.65,0,2*Math.PI);ctx.fill();ctx.fillStyle='#273c4d';ctx.beginPath();ctx.arc(ball.x,ball.y,R*.40,0,2*Math.PI);ctx.fill();ctx.restore();
+ ctx.restore();
+ }
+}
+// Test-only read interface (never changes gameplay and creates no independent game state).
+window.__airHockeyDiagnostics=()=>({version:'2.1',renderScale:dpr,qualityScale,performanceDrops,activeTouches:contacts.size,fullscreen:!!document.fullscreenElement,state,mode:cfg.mode,difficulty:cfg.difficulty,scores:{...scores},remaining,server,engineType,matchId,viewport:{width:cw,height:ch},views:views.map(v=>({...v})),puck:{...puck},mallets:JSON.parse(JSON.stringify(mallets)),lastError:$('error').textContent});
+updateSettings();resizeCanvas();updateHud();raf=requestAnimationFrame(animation);
+})();
+</script>
+</body></html>
